@@ -3,35 +3,57 @@ name: CI & Deploy
 on:
   push:
     branches:
-      - main # only trigger on direct pushes to main (i.e., merges)
+      - main # deploy only on main branch
   pull_request:
     branches:
-      - main # optional, for CI checks only (no deploy)
+      - main # CI checks on PRs
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      dist-path: ${{ steps.upload-dist.outputs.artifact-path }}
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: '20'
-      - run: npm ci
-      - run: npx prettier --check .
-      - run: npm run build
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Prettier
+        run: npx prettier --check .
+
+      - name: Build Vite project
+        run: npm run build
+
+      - name: Upload dist folder
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
-    if: github.ref == 'refs/heads/main' # only deploy on main branch
+    if: github.ref == 'refs/heads/main' # only deploy on main
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Download dist artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: dist
+          path: dist
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: '20'
-      - run: npm ci
-      - run: npm run build
-      - uses: peaceiris/actions-gh-pages@v4.0.0
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
