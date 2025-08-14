@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState } from "react";
-import larry from "../assets/liopleurodon.png";
-import ftcautonomousdesigner from "../assets/ftcautonomousdesigner.png";
-import scoutingapp from "../assets/scoutingapp.png";
-import elasticlogo from "../assets/elastic.png";
-import type { JSX } from "react";
-import { Link } from "react-router-dom";
-import { ArrowBackRounded } from "@mui/icons-material";
+import { useEffect, useRef, useState } from 'react';
+import larry from '../assets/liopleurodon.png';
+import ftcautonomousdesigner from '../assets/ftcautonomousdesigner.png';
+import scoutingapp from '../assets/scoutingapp.png';
+import elasticlogo from '../assets/elastic.png';
+import type { JSX } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowBackRounded } from '@mui/icons-material';
 
 interface Project {
   title: string;
@@ -20,39 +20,39 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: "Synapse",
+    title: 'Synapse',
     description: (
       <p>
         A custom dynamic vision processing system <br /> on an FRC Coprocessor
       </p>
     ),
     image: larry,
-    github: "https://github.com/DanPeled/Synapse",
-    post: "https://www.chiefdelphi.com/t/synapse-dynamic-vision-processing/505182",
-    tags: ["Vision", "Python", "OpenCV", "FRC"],
-    category: "Robotics",
-    subcategory: "Self-Made",
+    github: 'https://github.com/DanPeled/Synapse',
+    post: 'https://www.chiefdelphi.com/t/synapse-dynamic-vision-processing/505182',
+    tags: ['Vision', 'Python', 'OpenCV', 'FRC'],
+    category: 'Robotics',
+    subcategory: 'Self-Made',
   },
   {
-    title: "Generic Scouting App",
-    description: "Webapp in order to create, collect and manage scouting data",
+    title: 'Generic Scouting App',
+    description: 'Webapp in order to create, collect and manage scouting data',
     image: scoutingapp,
-    github: "https://github.com/DanPeled/Scouting-Tool",
-    tags: ["WebApp", "Flutter", "Scouting", "Dart"],
-    category: "Robotics",
-    subcategory: "Self-Made",
+    github: 'https://github.com/DanPeled/Scouting-Tool',
+    tags: ['WebApp', 'Flutter', 'Scouting', 'Dart'],
+    category: 'Robotics',
+    subcategory: 'Self-Made',
   },
   {
-    title: "FTC Autonomous Designer",
-    description: "A Tool to help design autonomous programs in FTC",
+    title: 'FTC Autonomous Designer',
+    description: 'A Tool to help design autonomous programs in FTC',
     image: ftcautonomousdesigner,
-    github: "https://github.com/DanPeled/FTCAutonomousDesigner",
-    tags: ["WebApp", "JS", "FTC", "Autonomous"],
-    category: "Robotics",
-    subcategory: "Self-Made",
+    github: 'https://github.com/DanPeled/FTCAutonomousDesigner',
+    tags: ['WebApp', 'JS', 'FTC', 'Autonomous'],
+    category: 'Robotics',
+    subcategory: 'Self-Made',
   },
   {
-    title: "Elastic Dashboard",
+    title: 'Elastic Dashboard',
     description: (
       <p>
         Driver Dashboard for FRC, added multiple features such as:
@@ -66,13 +66,13 @@ const projects: Project[] = [
       </p>
     ),
     image: elasticlogo,
-    github: "https://github.com/Gold872/elastic-dashboard",
-    tags: ["Desktop App", "FRC", "Flutter", "Dart"],
-    category: "Robotics",
-    subcategory: "Contributed To",
+    github: 'https://github.com/Gold872/elastic-dashboard',
+    tags: ['Desktop App', 'FRC', 'Flutter', 'Dart'],
+    category: 'Robotics',
+    subcategory: 'Contributed To',
   },
   {
-    title: "AutoPilot",
+    title: 'AutoPilot',
     description: (
       <p>
         A simple but powerful solution for autonomous navigation <br /> with a
@@ -80,11 +80,11 @@ const projects: Project[] = [
         Made a C++ rewrite of it
       </p>
     ),
-    image: "no image",
-    github: "https://github.com/DanPeled/AutopilotCPP",
-    tags: ["Java", "C++", "FRC", "Autonomous"],
-    category: "Robotics",
-    subcategory: "Contributed To",
+    image: 'no image',
+    github: 'https://github.com/DanPeled/AutopilotCPP',
+    tags: ['Java', 'C++', 'FRC', 'Autonomous'],
+    category: 'Robotics',
+    subcategory: 'Contributed To',
   },
 ];
 
@@ -97,7 +97,7 @@ export function Projects() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const title = entry.target.getAttribute("data-title");
+            const title = entry.target.getAttribute('data-title');
             if (title) {
               setVisibleCards((prev) => new Set(prev).add(title));
               observer.unobserve(entry.target);
@@ -105,7 +105,7 @@ export function Projects() {
           }
         });
       },
-      { threshold: 0.1 },
+      { threshold: 0.1 }
     );
 
     cardRefs.current.forEach((el) => observer.observe(el));
@@ -115,13 +115,13 @@ export function Projects() {
   const groupedProjects = projects.reduce(
     (acc: Record<string, Record<string, Project[]>>, project) => {
       const cat = project.category;
-      const sub = project.subcategory || "Other";
+      const sub = project.subcategory || 'Other';
       if (!acc[cat]) acc[cat] = {};
       if (!acc[cat][sub]) acc[cat][sub] = [];
       acc[cat][sub].push(project);
       return acc;
     },
-    {},
+    {}
   );
 
   return (
@@ -151,8 +151,8 @@ export function Projects() {
                     }}
                     className={`bg-gray-800 rounded-lg overflow-hidden shadow-lg transition-transform duration-400 ease-out transform ${
                       visibleCards.has(project.title)
-                        ? "opacity-100 translate-y-0"
-                        : "opacity-0 translate-y-12"
+                        ? 'opacity-100 translate-y-0'
+                        : 'opacity-0 translate-y-12'
                     } hover:scale-105`}
                   >
                     <img

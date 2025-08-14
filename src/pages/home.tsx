@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { FaGithub, FaItchIo } from "react-icons/fa";
-import { Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { FaGithub, FaItchIo } from 'react-icons/fa';
+import { Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 
-const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 
 interface AnimatedLetterProps {
   target: string;
@@ -17,7 +17,7 @@ const AnimatedLetter: React.FC<AnimatedLetterProps> = ({
   onAnimationComplete,
 }) => {
   const [char, setChar] = useState<string>(
-    letters[Math.floor(Math.random() * letters.length)],
+    letters[Math.floor(Math.random() * letters.length)]
   );
 
   useEffect(() => {
@@ -54,13 +54,13 @@ const AnimatedLetter: React.FC<AnimatedLetterProps> = ({
 };
 
 export function Home() {
-  const name = "Dan Peled";
+  const name = 'Dan Peled';
   const [lettersDone, setLettersDone] = useState(0);
   const [showContent, setShowContent] = useState(false);
 
   // when all letters finish
   useEffect(() => {
-    if (lettersDone >= name.replace(" ", "").length) {
+    if (lettersDone >= name.replace(' ', '').length) {
       // small delay before dropping the content
       const timer = setTimeout(() => setShowContent(true), 50);
       return () => clearTimeout(timer);
@@ -70,8 +70,8 @@ export function Home() {
   return (
     <div className="h-full flex flex-col items-center justify-center p-10 gap-5">
       <h1 className="text-7xl font-extrabold tracking-widest font-mono text-white">
-        {name.split("").map((letter, idx) => {
-          if (letter === " ") return <span key={idx}>&nbsp;</span>;
+        {name.split('').map((letter, idx) => {
+          if (letter === ' ') return <span key={idx}>&nbsp;</span>;
           return (
             <AnimatedLetter
               key={idx}
@@ -86,8 +86,8 @@ export function Home() {
       <div
         className={`flex flex-col items-center gap-16 transition-all duration-700 transform ${
           showContent
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 -translate-y-10"
+            ? 'opacity-100 translate-y-0'
+            : 'opacity-0 -translate-y-10'
         }`}
       >
         <h2 className="text-lg text-gray-400 text-center">
